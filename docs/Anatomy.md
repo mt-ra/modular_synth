@@ -2,10 +2,10 @@
 
 Components of a modular synth:
 - Module
-    - MIDI to Audio
-    - Audio to Audio
+    - MIDI to Voltage
+    - Voltage to Voltage
     - MIDI Generators
-    - Audio Generators
+    - Voltage Generators
 - Controller
 
 In the main file, the client can chain nodes together.
@@ -13,8 +13,8 @@ This is done through a controller (acts like the matrix in Serum).
 The controller is passed into the PortAudio callback function.
 
 In a typical synth, the MIDI input (owned by the controller), is pushed into 
-a MIDI to Audio module, whose audio is pushed into an effect,
-whose output audio is pushed into the controller's output.
+a MIDI to Voltage module, whose output voltage is pushed into an effect,
+whose output voltage is pushed into the controller's output.
 
 ## Nodes
 *Receiving Input*
