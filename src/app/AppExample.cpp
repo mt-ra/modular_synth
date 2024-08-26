@@ -7,6 +7,6 @@ AppExample::AppExample() {
 }
 
 // public member function
-AppExample::run() {
+void AppExample::run() {
     engine::MidiStream_PortAudio con{}; // put a MIDI stream object in the constructor
 }
