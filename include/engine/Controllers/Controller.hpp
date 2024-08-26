@@ -1,16 +1,34 @@
 #pragma once
+#include <memory>
 #include <engine/Modules/Module.hpp>
 
 namespace engine {
 
 class Controller {
 protected: // member variables
-std::vector<Module> modules_;
+float bpm_;
+float sample_rate_;
+
+std::vector<std::shared_ptr<Module>> modules_;
+BoundedBuffer<float> left_output_buffer_;
+BoundedBuffer<float> right_output_buffer_;
+
+public: // RAII member functions
+    Controller() = 0;
+    virtual ~Controller() = 0;
+    Controller(Controller const &other) = delete;
+    Controller &operator=(Controller const &other) = delete;
 
 public: // interface functions
+    // during setup
+    void add_module(std::shared_ptr<Module> mod);
+    void link(std::shared_ptr<Module> src, std::shared_ptr<Module> dest, size_t port);
+    void link_left_output(std::shared_ptr<Module> src);
+    void link_right_output(std::shared_ptr<Module> src);
 
-    // use dynamic dispatch
-    virtual void link(Module &src, Module &dest, size_t port);
+public: // functions for interacting with modules during runtime
+    void set_bpm(float new_bpm);
+    void set_parameter(size_t module_number, size_t param_number, float val);
 
 };
 
