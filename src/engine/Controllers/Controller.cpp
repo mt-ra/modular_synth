@@ -9,11 +9,27 @@ void Controller::add_module(std::shared_ptr<Module> mod) {
 }
 
 void Controller::link(
-    std::shared_ptr<Module> src, 
+    std::shared_ptr<VoltageModule> src, 
     std::shared_ptr<Module> dest, 
     size_t port
 ) {
-    src->link_to(dest, port);
+    src->link_to(&(dest->voltage_buffers_.at(port)));
+}
+
+void Controller::link(
+    std::shared_ptr<MidiModule> src, 
+    std::shared_ptr<Module> dest, 
+    size_t port
+) {
+    src->link_to(&(dest->midi_buffers_.at(port)));
+}
+
+void Controller::link_left_output(std::shared_ptr<VoltageModule> src) {
+    src->link_to(&left_output_buffer_);
+}
+
+void Controller::link_right_output(std::shared_ptr<VoltageModule> src) {
+    src->link_to(&right_output_buffer_);
 }
 
 void Controller::set_bpm(float new_bpm) {

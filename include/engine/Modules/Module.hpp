@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <boost/circular_buffer.hpp>
 #include <engine/MIDI/midi_msg.hpp>
 #include <engine/BoundedBuffer.hpp>
 
@@ -18,13 +17,10 @@ protected: // member variables
     // parameters
     vector<float> parameters_;
 
+public:
     // input buffers
-    BoundedBuffer<midi_msg> midi_buffer_;
-    BoundedBuffer<float> voltage_buffer_;
-
-    // destination information
-    std::shared_ptr<Module> destination_;
-    size_t dest_port_number_;
+    std::vector<BoundedBuffer<midi_msg>> midi_buffers_;
+    std::vector<BoundedBuffer<float>> voltage_buffers_;
 
 public: // RAII member functions
     Module();
@@ -38,13 +34,13 @@ public: // public member functions
 
     void set_parameter(size_t param_number, float value);
     void increase_parameter(size_t param_number, float value);
-    void link_to(std::shared_ptr<Module> dest, size_t port_number) = 0;
 
     // where the actual module logic is implemented
-    virtual void generate();
+    virtual void generate() = 0;
 
 private: // private member functions
-    virtual void deliver();
+    virtual void deliver(float v);
+    virtual void deliver(midi_msg m);
 };
 
 }
