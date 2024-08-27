@@ -7,6 +7,8 @@
 #include <engine/BoundedBuffer.hpp>
 #include <semaphore>
 
+#include <boost/circular_buffer.hpp>
+
 namespace engine {
 
 template<typename T>
@@ -24,16 +26,16 @@ public: // RAII member functions
 
 public: // interface
     void produce(T v) {
-        full_semaphore.acquire();
+        full_semaphore_.acquire();
         buffer_.push_back(v);
-        empty_semaphore.release();
+        empty_semaphore_.release();
     }
 
     T consume() {
-        empty_semaphore.acquire();
+        empty_semaphore_.acquire();
         T v = buffer_.front();
         buffer_.pop_front();
-        full_semaphore.release();
+        full_semaphore_.release();
         return v;
     }
 };

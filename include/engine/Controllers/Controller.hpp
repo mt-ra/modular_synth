@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <thread>
 #include <engine/Modules/Module.hpp>
 #include <engine/Modules/VoltageModule.hpp>
 #include <engine/Modules/MidiModule.hpp>
@@ -19,7 +20,7 @@ BoundedBuffer<float> left_output_buffer_;
 BoundedBuffer<float> right_output_buffer_;
 
 public: // RAII member functions
-    Controller() = 0;
+    Controller();
     virtual ~Controller() = 0;
     Controller(Controller const &other) = delete;
     Controller &operator=(Controller const &other) = delete;

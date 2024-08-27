@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <atomic>
+#include <vector>
 #include <engine/MIDI/midi_msg.hpp>
 #include <engine/BoundedBuffer.hpp>
 
@@ -15,7 +17,7 @@ protected: // member variables
     unsigned int voltage_sample_rate_;
 
     // parameters
-    vector<float> parameters_;
+    std::vector<float> parameters_;
 
 public:
     // input buffers

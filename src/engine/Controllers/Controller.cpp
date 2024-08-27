@@ -35,7 +35,7 @@ void Controller::link_right_output(std::shared_ptr<VoltageModule> src) {
 void Controller::set_bpm(float new_bpm) {
     bpm_ = new_bpm;
     for (auto m : modules_) {
-        m.set_bpm(bpm_);
+        m->set_bpm(bpm_);
     }
 }
 
@@ -47,7 +47,7 @@ void Controller::set_parameter(
     modules_.at(module_number)->set_parameter(param_number, val);
 }
 
-void Controller start_modules() {
+void Controller::start_modules() {
     for (auto m : modules_) {
         m->start();
     }
