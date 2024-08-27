@@ -8,7 +8,7 @@ namespace engine {
 
 class Module {
 protected: // member variables
-    std::atomic<bool> on_;
+    std::atomic<bool> on_ = true;
 
     // global information provided by controller
     float bpm_;
@@ -36,7 +36,7 @@ public: // public member functions
     void increase_parameter(size_t param_number, float value);
 
     // where the actual module logic is implemented
-    virtual void generate() = 0;
+    virtual void start() = 0;
 
 private: // private member functions
     virtual void deliver(float v);

@@ -12,6 +12,7 @@ float bpm_;
 float sample_rate_;
 
 std::vector<std::shared_ptr<Module>> modules_;
+std::vector<std::thread> module_threads_;
 
 public:
 BoundedBuffer<float> left_output_buffer_;
@@ -31,10 +32,14 @@ public: // interface functions
     void link_left_output(std::shared_ptr<VoltageModule> src);
     void link_right_output(std::shared_ptr<VoltageModule> src);
 
+    virtual void start() = 0;
+
 public: // functions for interacting with modules during runtime
     void set_bpm(float new_bpm);
     void set_parameter(size_t module_number, size_t param_number, float val);
 
+protected:
+    void start_modules();
 };
 
 }

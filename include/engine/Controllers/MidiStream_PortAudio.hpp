@@ -16,7 +16,7 @@ public: // RAII member variables
     ~MidiStream_PortAudio();
 
 public: // interface
-    void start();
+    void start() override;
 
 private:
     static void check_err(PaError err);

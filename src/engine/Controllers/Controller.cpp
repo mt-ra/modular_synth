@@ -47,4 +47,10 @@ void Controller::set_parameter(
     modules_.at(module_number)->set_parameter(param_number, val);
 }
 
+void Controller start_modules() {
+    for (auto m : modules_) {
+        m->start();
+    }
+}
+
 }
