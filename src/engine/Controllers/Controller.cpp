@@ -4,6 +4,10 @@
 
 namespace engine {
 
+Controller::Controller() {
+
+}
+
 void Controller::add_module(std::shared_ptr<Module> mod) {
     modules_.push_back(mod);
 }
@@ -39,6 +43,13 @@ void Controller::set_bpm(float new_bpm) {
     }
 }
 
+void Controller::set_sample_rate(unsigned int new_sample_rate) {
+    sample_rate_ = new_sample_rate;
+    for (auto m : modules_) {
+        m->set_sample_rate(sample_rate_);
+    }
+}
+
 void Controller::set_parameter(
     size_t module_number, 
     size_t param_number, 
@@ -48,8 +59,11 @@ void Controller::set_parameter(
 }
 
 void Controller::start_modules() {
+    // controller is responsible for multithreading
     for (auto m : modules_) {
-        m->start();
+        module_threads_.push_back(std::thread([&](){
+            m->start();
+        }));
     }
 }
 

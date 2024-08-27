@@ -19,6 +19,9 @@ private:
     boost::circular_buffer<T> buffer_;
 
 public: // RAII member functions
+    // TODO: FIX THIS
+    // TODO: FIGURE OUT WHY DEFAULT CONSTRUCTOR IS BEING CALLED
+    BoundedBuffer() : BoundedBuffer(1024) {}
     BoundedBuffer(size_t size) : buffer_(size), full_semaphore_(0), empty_semaphore_(size) {}
     ~BoundedBuffer() = default;
     BoundedBuffer(BoundedBuffer const &other) = delete;

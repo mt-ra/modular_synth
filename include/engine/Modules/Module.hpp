@@ -25,14 +25,14 @@ public:
     std::vector<BoundedBuffer<float>> voltage_buffers_;
 
 public: // RAII member functions
-    Module();
+    Module() = default;
     virtual ~Module() = 0;
     Module(Module const &other) = delete;
     Module &operator=(Module const &other) = delete;
 
 public: // public member functions
     void set_bpm(float bpm);
-    void set_sample_rate_(unsigned int sr);
+    void set_sample_rate(unsigned int sr);
 
     void set_parameter(size_t param_number, float value);
     void increase_parameter(size_t param_number, float value);

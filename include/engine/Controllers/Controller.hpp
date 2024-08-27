@@ -37,6 +37,7 @@ public: // interface functions
 
 public: // functions for interacting with modules during runtime
     void set_bpm(float new_bpm);
+    void set_sample_rate(unsigned int new_sample_rate);
     void set_parameter(size_t module_number, size_t param_number, float val);
 
 protected:

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 #include <engine/Controllers/MidiStream_PortAudio.hpp>
 
 namespace engine {
@@ -33,6 +34,8 @@ void MidiStream_PortAudio::start() {
 
     // TODO:
     // make sure you invoke all the modules in the controller
+    start_modules();
+    std::this_thread::sleep_for(std::chrono::seconds(10));
 
     // do some sleeping
 

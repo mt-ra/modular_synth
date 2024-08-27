@@ -8,7 +8,7 @@ void Module::set_bpm(float bpm) {
     bpm_ = bpm;
 }
 
-void Module::set_sample_rate_(unsigned int sr) {
+void Module::set_sample_rate(unsigned int sr) {
     voltage_sample_rate_ = sr;
 }
 

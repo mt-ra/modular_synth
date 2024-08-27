@@ -1,3 +1,5 @@
+#pragma once
+
 #include <engine/Modules/Module.hpp>
 
 namespace engine {
