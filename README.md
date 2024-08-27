@@ -1,11 +1,7 @@
 # Modular Synth
 An audio synthesizer (library?).
 
-**Planned Features:**
-- Reverb
-- Distortion
-- Modulation with Envelopes and LFOs
-- Compression
+I made this on Debian. Portability was not a priority.
 
 ## Dependencies
 ### Boost

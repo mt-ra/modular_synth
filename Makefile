@@ -27,11 +27,11 @@ $(BUILD_DIR)/AppExample.o: $(SRC_DIR)/app/AppExample.cpp $(INCLUDE_DIR)/app/AppE
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $< -c -o $@
 	echo "success making AppExample.o"
 
-# Controllers #####
-$(BUILD_DIR)/Controllers.o: $(BUILD_DIR)/Controller.o $(BUILD_DIR)/MidiStream_PortAudio.o
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
-	echo "success making combined Controllers object file"
+# ENGINE LIBRARY #####
+$(BUILD_DIR)/libEngine.a: $(BUILD_DIR)/Controller.o $(BUILD_DIR)/MidiStream_PortAudio.o $(BUILD_DIR)/Module.o $(BUILD_DIR)/VoltageModule.o $(BUILD_DIR)/MidiModule.o
+	ar rcs $@ $^
 
+# Controllers #####
 $(BUILD_DIR)/Controller.o: $(SRC_DIR)/engine/Controllers/Controller.cpp $(INCLUDE_DIR)/engine/Controllers/Controller.hpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $< -c -o $@
 	echo "success making Controller.o"
@@ -41,10 +41,6 @@ $(BUILD_DIR)/MidiStream_PortAudio.o: $(SRC_DIR)/engine/Controllers/MidiStream_Po
 	echo "success making MidiStream_PortAudio.o"
 
 # Modules #####
-$(BUILD_DIR)/Modules.o: $(BUILD_DIR)/Module.o $(BUILD_DIR)/VoltageModule.o $(BUILD_DIR)/MidiModule.o
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
-	echo "success making combined Modules object file"
-
 $(BUILD_DIR)/Module.o: $(SRC_DIR)/engine/Modules/Module.cpp $(INCLUDE_DIR)/engine/Modules/Module.hpp
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $< -c -o $@
 	echo "success making Module.o"

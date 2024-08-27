@@ -20,11 +20,11 @@ void Module::increase_parameter(size_t param_number, float value) {
     parameters_.at(param_number) += value;
 }
 
-virtual void Module::deliver(float v) {
+void Module::deliver(float v) {
     // do nothing
 }
 
-virtual void Module::deliver(midi_msg m) {
+void Module::deliver(midi_msg m) {
     // do nothing
 }
 
