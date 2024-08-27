@@ -1,3 +1,4 @@
+#include <iostream>
 #include <engine/Controllers/MidiStream_PortAudio.hpp>
 
 namespace engine {
@@ -20,14 +21,14 @@ MidiStream_PortAudio::MidiStream_PortAudio() {
 }
 
 MidiStream_PortAudio::~MidiStream_PortAudio() {
-    err = Pa_CloseStream(stream);
+    PaError err = Pa_CloseStream(stream);
     check_err(err);
     Pa_Terminate();
     check_err(err);
 }
 
 void MidiStream_PortAudio::start() {
-    err = Pa_StartStream(stream); 
+    PaError err = Pa_StartStream(stream); 
     check_err(err);
 
     // TODO:
@@ -39,7 +40,7 @@ void MidiStream_PortAudio::start() {
     check_err(err);
 }
 
-static int MidiStream_PortAudio::callback(
+int MidiStream_PortAudio::callback(
     const void *inputBuffer, 
     void *outputBuffer,
     unsigned long framesPerBuffer,
@@ -47,8 +48,8 @@ static int MidiStream_PortAudio::callback(
     PaStreamCallbackFlags statusFlags,
     void *data) 
 {
-    auto controller = std::static_cast<MidiStream_PortAudio *>(data);
-    auto out = std::static_cast<float *>(outputBuffer);
+    auto controller = static_cast<MidiStream_PortAudio *>(data);
+    auto out = static_cast<float *>(outputBuffer);
     (void) inputBuffer;
     for (unsigned long i = 0; i < framesPerBuffer; ++i) {
         float left_voltage = controller->left_output_buffer_.consume();
@@ -60,7 +61,7 @@ static int MidiStream_PortAudio::callback(
     return 0;
 }
 
-static void MidiStream_PortAudio::check_err(PaError err) {
+void MidiStream_PortAudio::check_err(PaError err) {
     if (err != paNoError) {
         Pa_Terminate();
         std::cerr << "An error occured while using the portaudio stream" << std::endl;
