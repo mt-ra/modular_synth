@@ -4,10 +4,13 @@
 
 #pragma once
 
+#include <iostream>
 #include <engine/BoundedBuffer.hpp>
 #include <semaphore>
 
 #include <boost/circular_buffer.hpp>
+
+#define DEFAULT_BUFF_SIZE 4096
 
 namespace engine {
 
@@ -21,8 +24,10 @@ private:
 public: // RAII member functions
     // TODO: FIX THIS
     // TODO: FIGURE OUT WHY DEFAULT CONSTRUCTOR IS BEING CALLED
-    BoundedBuffer() : BoundedBuffer(1024) {}
-    BoundedBuffer(size_t size) : buffer_(size), full_semaphore_(0), empty_semaphore_(size) {}
+    BoundedBuffer() : BoundedBuffer(DEFAULT_BUFF_SIZE) {}
+    BoundedBuffer(size_t size) : buffer_(size), full_semaphore_(size), empty_semaphore_(0) {
+        std::cerr << "made bounded buffer with size = " << size << std::endl;
+    }
     ~BoundedBuffer() = default;
     BoundedBuffer(BoundedBuffer const &other) = delete;
     BoundedBuffer &operator=(BoundedBuffer const &other) = delete;

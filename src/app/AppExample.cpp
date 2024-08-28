@@ -21,4 +21,5 @@ void AppExample::run() {
 
     std::cout << "Hello world!" << std::endl;
     con.start();
+    std::cout << "Goodbye world!" << std::endl;
 }

@@ -14,7 +14,7 @@ Controllers := src/engine/Controllers/*.cpp
 App := src/app/AppExample.cpp
 
 all: $(wildcard $(Modules)) $(wildcard $(Controllers)) $(App) main.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ $(PORTAUDIO_LIB) $(LDFLAGS) -o app
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ $(PORTAUDIO_LIB) $(LDFLAGS) -g -o app
 
 
 .PHONY: clean

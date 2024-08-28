@@ -2,9 +2,11 @@
 #include <thread>
 #include <engine/Controllers/MidiStream_PortAudio.hpp>
 
+int fuck = 0;
+
 namespace engine {
 
-MidiStream_PortAudio::MidiStream_PortAudio() {
+MidiStream_PortAudio::MidiStream_PortAudio() : Controller() {
     PaError err;
     err = Pa_Initialize();
     check_err(err);
@@ -31,13 +33,20 @@ MidiStream_PortAudio::~MidiStream_PortAudio() {
 }
 
 void MidiStream_PortAudio::start() {
+    std::cerr << "Starting stream..." << std::endl;
     PaError err = Pa_StartStream(stream); 
     check_err(err);
 
     // TODO:
     // make sure you invoke all the modules in the controller
+
+    std::cerr << "Starting modules..." << std::endl;
     start_modules();
-    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+    std::cerr << "sleeping a bit..." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(20));
+    
+    std::cerr << "Sleep finished!" << std::endl;
 
     // do some sleeping
 
@@ -59,7 +68,6 @@ int MidiStream_PortAudio::callback(
     for (unsigned long i = 0; i < framesPerBuffer; ++i) {
         float left_voltage = controller->left_output_buffer_.consume();
         float right_voltage = controller->right_output_buffer_.consume();
-
         *out++ = left_voltage;
         *out++ = right_voltage;
     }

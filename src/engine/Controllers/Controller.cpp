@@ -1,11 +1,11 @@
-
+#include <iostream>
 #include <memory>
 #include <engine/Controllers/Controller.hpp>
 
 namespace engine {
 
-Controller::Controller() {
-
+Controller::Controller() : left_output_buffer_(), right_output_buffer_() {
+    std::cerr << "Controller constructor" << std::endl;
 }
 
 void Controller::add_module(std::shared_ptr<Module> mod) {
@@ -61,7 +61,7 @@ void Controller::set_parameter(
 void Controller::start_modules() {
     // controller is responsible for multithreading
     for (auto m : modules_) {
-        module_threads_.push_back(std::thread([&](){
+        module_threads_.push_back(std::thread([m](){
             m->start();
         }));
     }
