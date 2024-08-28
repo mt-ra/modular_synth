@@ -21,7 +21,7 @@ BoundedBuffer<float> right_output_buffer_;
 
 public: // RAII member functions
     Controller();
-    virtual ~Controller() = 0;
+    virtual ~Controller() = default;
     Controller(Controller const &other) = delete;
     Controller &operator=(Controller const &other) = delete;
 

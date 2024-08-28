@@ -8,6 +8,8 @@ MidiStream_PortAudio::MidiStream_PortAudio() {
     PaError err;
     err = Pa_Initialize();
     check_err(err);
+    std::cerr << "Device count = " << Pa_GetDeviceCount() << std::endl;
+    std::cerr << "Opening Default Stream: " << std::endl;
     err = Pa_OpenDefaultStream(
         &stream,
         0,

@@ -6,7 +6,7 @@ I made this on Debian. Portability was not a priority.
 ## Current State of the Project:
 I made a module called TestSquare, (which actually produces a saw wave)
 When the app is run, it should output a saw sound.
-However I can't get it to compile just yet
+However i am hitting a segmentaiton fault
 
 ## Dependencies
 ### Boost

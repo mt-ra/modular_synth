@@ -10,7 +10,7 @@ private:
 
 public: // RAII member functions
     VoltageModule() = default;
-    virtual ~VoltageModule() = 0;
+    virtual ~VoltageModule() = default;
 
 public: // interface
     void link_to(BoundedBuffer<float> *dest);

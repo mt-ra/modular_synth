@@ -26,7 +26,7 @@ public:
 
 public: // RAII member functions
     Module() = default;
-    virtual ~Module() = 0;
+    virtual ~Module() = default;
     Module(Module const &other) = delete;
     Module &operator=(Module const &other) = delete;
 
